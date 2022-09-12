@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".SettingActivity">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/tvUrl"
+            android:layout_margin="12dp"
+            android:layout_gravity="right"
+            tools:text="http://192.168.1.120:8000"
+            android:layout_height="wrap_content" />
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:id="@+id/edtWalletNo"-->
+<!--            android:hint="เบอร์วอเล็ต"-->
+<!--            android:layout_margin="12dp"-->
+<!--            android:layout_height="wrap_content"/>-->
+<!--        <Switch-->
+<!--            android:id="@+id/swScbSms"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="right"-->
+<!--            android:layout_margin="12dp"-->
+
+<!--            android:text="เปิดรับ SMS ไทยพาณิชย์" />-->
+
+<!--        <Switch-->
+<!--            android:id="@+id/swScbConnect"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="right"-->
+<!--            android:layout_margin="12dp"-->
+<!--            android:text="เปิดรับ SCB CONNECT" />-->
+
+<!--        <Switch-->
+<!--            android:id="@+id/swTrueWallet"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="right"-->
+<!--            android:layout_margin="12dp"-->
+<!--            android:text="เปิดรับ True Wallet" />-->
+
+<!--        <Switch-->
+<!--            android:id="@+id/swKPlus"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="right"-->
+<!--            android:layout_margin="12dp"-->
+<!--            android:text="เปิดรับ Notify KPlus" />-->
+
+<!--        <Switch-->
+<!--            android:id="@+id/swKBank"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="right"-->
+<!--            android:layout_margin="12dp"-->
+<!--            android:text="เปิดรับ SMS KBANK" />-->
+
+        <Switch
+            android:id="@+id/swMainWidget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="12dp"
+            android:text="Main Widget" />
+
+        <Button
+            android:id="@+id/testButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:text="Test Server" />
+
+<!--        <Button-->
+<!--            android:id="@+id/testAdb"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="Test ADB" />-->
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:text="Logout" />
+
+        <Button
+            android:id="@+id/btnExit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:text="Exit" />
+    </LinearLayout>
+
+</ScrollView>

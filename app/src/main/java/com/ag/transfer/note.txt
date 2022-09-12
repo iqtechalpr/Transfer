@@ -1,0 +1,270 @@
+main
+ChildModel(id=com.miui.home:id/icon_title, text=Settings, x=160, y=1325)
+
+ChildModel(id=com.miui.home:id/icon_title, text=TrueMoney, x=922, y=1325)
+adb shell input tap 922 1225
+ ChildModel(id=com.miui.home:id/icon_title, text=Transfer, x=668, y=1935)
+ adb shell input tap 668 1835
+
+  StateChanged:2
+ 2022-09-08 17:27:00.916 1911-1911/com.ag.transfer I/System.out: CmdModel(index=2, cmd=password, id=th.co.truemoney.wallet:id/sliding_btnTextTransfer, text=, isFindChild=true, delay=500)
+ 2022-09-08 17:27:00.925 1911-1911/com.ag.transfer I/System.out: null
+ 2022-09-08 17:27:03.951 1911-1911/com.ag.transfer I/System.out: 32 = TYPE_WINDOW_STATE_CHANGED
+ 2022-09-08 17:27:04.187 1911-1911/com.ag.transfer I/System.out: 32 = TYPE_WINDOW_STATE_CHANGED
+ 2022-09-08 17:27:04.692 1911-1911/com.ag.transfer I/System.out: StateChanged:3
+ 2022-09-08 17:27:04.692 1911-1911/com.ag.transfer I/System.out: CmdModel(index=3, cmd=tap, id=th.co.truemoney.wallet:id/edt_ref, text=, isFindChild=true, delay=500)
+ 2022-09-08 17:27:04.820 1911-1911/com.ag.transfer I/System.out: null
+ 2022-09-08 17:27:04.820 1911-1911/com.ag.transfer I/System.out: child null at: 3
+
+ CmdModel(index=5, cmd=text, id=, text=0891508338, isFindChild=false, delay=200)
+ 2022-09-08 18:32:30.425 6710-6710/com.ag.transfer I/System.out: null
+ 2022-09-08 18:32:30.425 6710-6710/com.ag.transfer I/System.out: cmd.text: 0891508338
+ 2022-09-08 18:32:30.930 6710-6710/com.ag.transfer I/System.out: nodeRoot != null
+ 2022-09-08 18:32:30.930 6710-6710/com.ag.transfer I/System.out: nodeFocused != null
+ 2022-09-08 18:32:30.930 6710-6710/com.ag.transfer I/System.out: 0891508338
+
+###trueMoney
+Password
+ChildModel(id=th.co.truemoney.wallet:id/tv_name, text=ชัยวัฒน์ แก้วสาย, x=539, y=532) -0
+ChildModel(id=th.co.truemoney.wallet:id/btn_forgot_pin, text=ลืมรหัส PIN / ไม่มีรหัส PIN, x=540, y=1120) -3
+
+go
+ChildModel(id=th.co.truemoney.wallet:id/tabbar_menu_textview_1, text=หน้าหลัก, x=107, y=2229)
+
+main
+ChildModel(id=th.co.truemoney.wallet:id/btnTextFundin, text=เติมเงินเข้าบัญชี, x=168, y=406)
+ChildModel(id=th.co.truemoney.wallet:id/tvSubTitle, text=ยอดเงินคงเหลือ, x=262, y=628) -5
+ChildModel(id=th.co.truemoney.wallet:id/tvTitle, text=฿ 1.00, x=313, y=776)
+ChildModel(id=th.co.truemoney.wallet:id/btnTextTransfer, text=โอนเงิน, x=416, y=311) -0
+
+โอนเงิน
+ChildModel(id=th.co.truemoney.wallet:id/btnTextFundin, text=เติมเงินเข้าบัญชี, x=168, y=282)
+ChildModel(id=th.co.truemoney.wallet:id/tv_mobile_header, text=โอนเงินไปยัง, x=184, y=596)
+ChildModel(id=th.co.truemoney.wallet:id/edt_ref, text=08x-xxx-xxxx / ชื่อ / วอลเล็ท ไอดี, x=463, y=1043)
+
+
+โอนเงิน phone no
+ChildModel(id=th.co.truemoney.wallet:id/toolbar_title, text=โอนเงิน, x=551, y=163)
+ChildModel(id=th.co.truemoney.wallet:id/common_edt, text=0891508338, x=513, y=429)
+
+โอนเงิน 2
+ChildModel(id=th.co.truemoney.wallet:id/edt_ref, text=089-150-8338, x=463, y=1043)
+ChildModel(id=th.co.truemoney.wallet:id/editTextAmount, text=00.00, x=564, y=1284)
+ChildModel(id=th.co.truemoney.wallet:id/btnTransferOrLogin, text=โอนเงิน, x=540, y=1861)
+
+ยืนยันการทำรายการ
+ChildModel(id=th.co.truemoney.wallet:id/toolbar_title, text=ยืนยันการทำรายการ, x=551, y=163)
+ChildModel(id=th.co.truemoney.wallet:id/tvTotalAmountValue, text=1.00 บาท, x=788, y=726)
+ChildModel(id=th.co.truemoney.wallet:id/mobileNumberTextView, text=089-150-8338, x=788, y=655)
+ChildModel(id=th.co.truemoney.wallet:id/transferConfirmButton, text=ยืนยันการโอนเงิน, x=788, y=2172)
+
+ทำรายการสำเร็จ
+ChildModel(id=th.co.truemoney.wallet:id/toolbar_title, text=ทำรายการสำเร็จ, x=551, y=163)
+ChildModel(id=th.co.truemoney.wallet:id/btn_save, text=บันทึกใบเสร็จ, x=788, y=1524)
+ChildModel(id=th.co.truemoney.wallet:id/textChat, text=เรียบร้อย, x=540, y=1728)
+ChildModel(id=th.co.truemoney.wallet:id/tv_second, text=50015502698704, x=746, y=1242) หมายเลขการทำรายการ
+ChildModel(id=th.co.truemoney.wallet:id/tv_second, text=06/09/2022 15:41:28, x=672, y=1178) วันที่ทำรายการ
+ls -la /sdcard/Pictures/TrueMoney/
+root everybody 424044 2022-09-06 15:43 Invoice_2022-09-06_15.43.34.jpg
+
+
+Frist Page
+ ChildModel(id=th.co.truemoney.wallet:id/btnTextFundin, text=เติมเงินเข้าบัญชี, x=168, y=343)
+
+ 2022-09-07 13:20:18.374 21241-21241/com.ag.transfer I/System.out: ChildModel(id=th.co.truemoney.wallet:id/tv_sender_wallet_id, text=089-150-8338, x=349, y=598)
+
+
+///////////
+
+ChildModel(id=com.miui.home:id/icon_title, text=K PLUS, x=922, y=1935)
+adb shell input tap 922 1835
+32 = TYPE_WINDOW_STATE_CHANGED
+32 = TYPE_WINDOW_STATE_CHANGED
+intStateChanged
+
+Kplus main
+ChildModel(id=com.kasikorn.retail.mbanking.wap:id/footer_home_textview, text=หน้าแรก, x=134, y=2241)
+ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_quickBankingMenu_titleHomeCircle, text=โอนเงิน, x=135, y=645)
+hildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_quickBankingMenu_titleHomeCircle, text=เติมเงิน, x=405, y=645)
+adb shell input tap 135 645
+ 32 = TYPE_WINDOW_STATE_CHANGED *3
+
+แจ้งเตือน
+32 = TYPE_WINDOW_STATE_CHANGED *2
+  ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_title_dialog, text=แจ้งเตือน, x=540, y=1103)
+  ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_message_dialog, text=คุณทำรายการเกินระยะเวลาที่กำหนด คุณต้องการใช้งาน K+ ต่อหรือไม่, x=540, y=1208)
+   ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_confirm, text=ใช่, x=844, y=1417)
+   adb shell input tap 844 1417
+ TYPE_WINDOW_STATE_CHANGED *4
+ adb shell input tap 135 645
+TYPE_WINDOW_STATE_CHANGED
+
+ password
+ ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_pin_title_activity, text=กรุณาใส่รหัสผ่าน, x=540, y=698)
+2022-09-06 16:48:46.011 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_1, text=1, x=276, y=1012)
+2022-09-06 16:48:46.011 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_2, text=2, x=540, y=1012)
+2022-09-06 16:48:46.011 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_3, text=3, x=804, y=1012)
+2022-09-06 16:48:46.011 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_4, text=4, x=276, y=1243)
+2022-09-06 16:48:46.011 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_5, text=5, x=540, y=1243)
+2022-09-06 16:48:46.012 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_6, text=6, x=804, y=1243)
+2022-09-06 16:48:46.012 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_7, text=7, x=276, y=1474)
+2022-09-06 16:48:46.012 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_8, text=8, x=540, y=1474)
+2022-09-06 16:48:46.012 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_9, text=9, x=804, y=1474)
+2022-09-06 16:48:46.012 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_0, text=0, x=540, y=1705)
+adb shell input tap 804 1012 -3
+32 = TYPE_WINDOW_STATE_CHANGED
+TYPE_WINDOW_STATE_CHANGED
+
+โอนเงิน
+2022-09-09 17:01:35.791 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_title, text=โอนเงิน, x=540, y=180)
+2022-09-09 17:01:35.813 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_header_name, text=รายการโปรด, x=174, y=493)
+2022-09-09 17:01:35.814 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_header_showmore, text=ทั้งหมด >, x=961, y=497)
+2022-09-09 17:01:35.820 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_favoriteCircle_withOutTheme, text=non TTLock, x=121, y=815)
+2022-09-09 17:01:35.826 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_favoriteCircle_withOutTheme, text=test, x=363, y=815)
+2022-09-09 17:01:35.831 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_favoriteCircle_withOutTheme, text=wat KTB, x=605, y=815)
+2022-09-09 17:01:35.837 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_favoriteCircle_withOutTheme, text=wat scb2, x=847, y=815)
+2022-09-09 17:01:35.841 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_serviceMenu_itemList, text=รายการใหม่, x=161, y=1008)
+2022-09-09 17:01:35.847 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_menu_fundtransfer, text=บัญชีกสิกรไทย, x=358, y=1145)
+2022-09-09 17:01:35.853 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_menu_fundtransfer, text=บัญชีธนาคารอื่น, x=865, y=1145)
+2022-09-09 17:01:35.859 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_menu_fundtransfer, text=เบอร์มือถือ, x=358, y=1318)
+2022-09-09 17:01:35.864 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_menu_fundtransfer, text=พร้อมเพย์, x=865, y=1318)
+2022-09-09 17:01:35.871 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_menu_fundtransfer, text=โอนเงิน
+2022-09-09 17:01:35.871 5752-5752/com.ag.transfer I/System.out: ต่างประเทศ, x=358, y=1491)
+2022-09-09 17:01:35.876 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_menu_fundtransfer, text=โอนเงิน
+2022-09-09 17:01:35.876 5752-5752/com.ag.transfer I/System.out: เป็นกลุ่ม, x=865, y=1491)
+2022-09-09 17:01:35.882 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_scheduleList_filterButton, text=ทั้งหมด, x=2011, y=475)
+2022-09-09 17:01:35.890 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/button_scheduleList_createSchedule, text=ตั้งรายการล่วงหน้า, x=1752, y=2165)
+adb shell input tap 865 1145
+TYPE_WINDOW_STATE_CHANGED * 3
+
+
+เลือกธนาคาร
+ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_title, text=เลือกธนาคาร, x=540, y=180)
+id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ไทยพาณิชย์, x=617, y=1441)
+2022-09-06 17:30:41.072 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=กรุงไทย, x=617, y=825)
+ไทยพาณิชย์ adb shell input tap 617 1441
+adb shell input tap 617 825
+TYPE_WINDOW_STATE_CHANGED
+
+โอนเงิน
+ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_title, text=โอนเงิน, x=540, y=180)
+ ChildModel(id=com.kasikorn.retail.mbanking.wap:id/plus_pattern_edittext, text=กรอกเลขบัญชี, x=545, y=1317)
+ adb shell input tap 545 1317
+  adb shell input text 8802464351
+  กรุงไทย adb shell input text 7840407277
+  adb shell input keyevent 4
+
+ ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_plus_edittext_title, text=จำนวน:, x=114, y=1468)
+adb shell input tap 114 1468
+ adb shell input text 1
+ adb shell input keyevent 4
+ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_navigation_next, text=ต่อไป, x=867, y=2171)
+adb shell input tap 867 2171
+32 = TYPE_WINDOW_STATE_CHANGED
+32 = TYPE_WINDOW_STATE_CHANGED
+
+ตรวจสอบข้อมูล
+ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_to_ref2, text=880-2-46435-1, x=657, y=875)
+ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_amount, text=1.00, x=701, y=1306)
+ : ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_navigation_next, text=ยืนยัน, x=862, y=2171)
+ adb shell input tap 862 2171
+ 32 = TYPE_WINDOW_STATE_CHANGED *4
+
+ ทำรายการสำเร็จ
+  ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_title, text=ทำรายการสำเร็จ, x=540, y=180)
+  ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_datetime, text=6 ก.ย. 65  16:59 น., x=493, y=412)
+  ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView, text=ยอดเงินคงเหลือ: 4,641.34 บาท, x=348, y=1677)
+ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_bottom_menu_home, text=กลับหน้าธุรกรรม, x=135, y=2195)
+ls -la /sdcard/Pictures/K\ PLUS
+root everybody 117112 2022-09-06 16:59 012249165952194019.jpeg
+
+ adb shell input tap 135 2095
+TYPE_WINDOW_STATE_CHANGED * 3
+ุรกรรม
+ChildModel(id=com.kasikorn.retail.mbanking.wap:id/footer_home_textview, text=หน้าแรก, x=134, y=2241)
+ ChildModel(id=com.kasikorn.retail.mbanking.wap:id/footer_home_textview, text=หน้าแรก, x=134, y=2241)
+ adb shell input tap 134 2241
+adb shell input keyevent 3
+
+
+
+com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_title, text=เลือกธนาคาร, x=540, y=180)
+2022-09-06 16:52:34.480 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/search_edit_text, text=ค้นหา, x=587, y=348)
+2022-09-06 16:52:34.494 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=กสิกรไทย, x=617, y=517)
+2022-09-06 16:52:34.499 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=กรุงเทพ, x=617, y=671)
+2022-09-06 16:52:34.502 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=กรุงไทย, x=617, y=825)
+2022-09-06 16:52:34.505 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=กรุงศรี, x=617, y=979)
+2022-09-06 16:52:34.509 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ซีไอเอ็มบี, x=617, y=1133)
+2022-09-06 16:52:34.512 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ทหารไทยธนชาต, x=617, y=1287)
+2022-09-06 16:52:34.515 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ไทยพาณิชย์, x=617, y=1441)
+2022-09-06 16:52:34.519 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ยูโอบี, x=617, y=1595)
+2022-09-06 16:52:34.525 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=แลนด์ แอนด์ เฮ้าส์, x=617, y=1749)
+2022-09-06 16:52:34.531 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=สแตนดาร์ดฯ, x=617, y=1903)
+2022-09-06 16:52:34.537 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ออมสิน, x=617, y=2057)
+2022-09-06 16:52:34.544 25973-25973/com.agent.tfb I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=เกียรตินาคินภัทร, x=617, y=2211)
+
+52-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=เกียรตินาคินภัทร, x=617, y=438)
+2022-09-09 17:08:04.649 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ซิตี้แบงก์, x=617, y=559)
+2022-09-09 17:08:04.654 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=อาคารสงเคราะห์, x=617, y=713)
+2022-09-09 17:08:04.662 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ธ.ก.ส., x=617, y=867)
+2022-09-09 17:08:04.671 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=มิซูโฮ, x=617, y=1021)
+2022-09-09 17:08:04.681 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ธ.อิสลาม, x=617, y=1175)
+2022-09-09 17:08:04.688 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ทิสโก้, x=617, y=1329)
+2022-09-09 17:08:04.698 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ไอซีบีซี (ไทย), x=617, y=1483)
+2022-09-09 17:08:04.706 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ไทยเครดิต, x=617, y=1637)
+2022-09-09 17:08:04.714 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ซูมิโตโม มิตซุย, x=617, y=1791)
+2022-09-09 17:08:04.721 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=เอชเอสบีซี, x=617, y=1945)
+2022-09-09 17:08:04.729 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=บีเอ็นพี พารีบาส์, x=617, y=2099)
+2022-09-09 17:08:04.736 5752-5752/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/merchant_name, text=ดอยซ์แบงก์ เอจี, x=617, y=2246)
+
+/com.ag.transfer I/System.out: control,childs,ตรวจสอบข้อมูล
+
+2022-09-10 13:31:22.603 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_title, text=ตรวจสอบข้อมูล, x=540, y=180)
+2022-09-10 13:31:22.604 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_from_name, text=My Account, x=668, y=398)
+2022-09-10 13:31:22.606 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_from_ref1, text=744-2-72048-1, x=668, y=467)
+2022-09-10 13:31:22.610 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_to_name, text=นาย ชัยวัฒน์ แก้วสาย, x=657, y=745)
+2022-09-10 13:31:22.613 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_to_ref1, text=ธ.ไทยพาณิชย์, x=657, y=814)
+2022-09-10 13:31:22.615 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_to_ref2, text=880-2-46435-1, x=657, y=875)
+2022-09-10 13:31:22.618 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_confirm_remark_account, text=ระวังถูกมิจฉาชีพหลอก หรือโอนผิดบัญชี ! กรุณาตรวจสอบข้อมูลบัญชีปลายทางให้ถูกต้อง หากยืนยันแล้วจะไม่สามารถเปลี่ยนแปลงได้ (สงสัย กดยกเลิก >> เลือก "อื่นๆ" ที่แถบเมนูหน้าหลัก >> "ติดต่อธนาคาร"), x=545, y=1081)
+2022-09-10 13:31:22.621 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_amount_label, text=จำนวน:, x=270, y=1306)
+2022-09-10 13:31:22.625 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_amount, text=1.00, x=701, y=1306)
+2022-09-10 13:31:22.628 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_baht, text=บาท, x=960, y=1306)
+2022-09-10 13:31:22.630 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_fee_label, text=ค่าธรรมเนียม:, x=391, y=1383)
+2022-09-10 13:31:22.634 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_fee, text=0.00, x=806, y=1385)
+2022-09-10 13:31:22.636 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_transferconfirm_baht2, text=บาท, x=960, y=1385)
+2022-09-10 13:31:22.642 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_memo_title, text=บันทึกช่วยจำ, x=173, y=1540)
+2022-09-10 13:31:22.646 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_memo_category_title, text=ประเภท:, x=843, y=1532)
+2022-09-10 13:31:22.646 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_memo_category, text=อื่นๆ, x=961, y=1532)
+2022-09-10 13:31:22.652 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_navigation_cancel, text=ยกเลิก, x=224, y=2171)
+2022-09-10 13:31:22.652 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_navigation_next, text=ยืนยัน, x=862, y=2171)
+
+3-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_title, text=ทำรายการสำเร็จ, x=540, y=180)
+2022-09-10 13:32:31.929 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_header, text=โอนเงินสำเร็จ, x=493, y=340)
+2022-09-10 13:32:31.932 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_datetime, text=10 ก.ย. 65  13:32 น., x=493, y=412)
+2022-09-10 13:32:31.934 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_main_from_account, text=นาย ชัยวัฒน์ แ, x=646, y=556)
+2022-09-10 13:32:31.937 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_sub_from_account, text=ธ.กสิกรไทย, x=646, y=620)
+2022-09-10 13:32:31.939 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView, text=xxx-x-x2048-x, x=425, y=684)
+2022-09-10 13:32:31.941 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_main_destination_account, text=นาย ชัยวัฒน์ แก้วสาย, x=646, y=880)
+2022-09-10 13:32:31.943 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_sub_destination_account, text=ธ.ไทยพาณิชย์, x=646, y=944)
+2022-09-10 13:32:31.945 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView, text=xxx-x-x6435-x, x=425, y=1008)
+2022-09-10 13:32:31.947 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_finance_number_title, text=เลขที่รายการ:, x=195, y=1147)
+2022-09-10 13:32:31.949 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_finance_number, text=012253133206692749, x=357, y=1208)
+2022-09-10 13:32:31.951 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_finance_number_title, text=จำนวน:, x=148, y=1272)
+2022-09-10 13:32:31.953 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_finance_number, text=1.00 บาท, x=357, y=1335)
+2022-09-10 13:32:31.954 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_finance_number_title, text=ค่าธรรมเนียม:, x=199, y=1400)
+2022-09-10 13:32:31.957 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_finance_number, text=0.00 บาท, x=357, y=1463)
+2022-09-10 13:32:31.958 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_qr, text=สแกนตรวจสอบสลิป, x=845, y=1473)
+2022-09-10 13:32:31.961 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView, text=ประเภท: อื่นๆ, x=193, y=1613)
+2022-09-10 13:32:31.963 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView, text=ยอดเงินคงเหลือ: 3,027.34 บาท, x=348, y=1677)
+2022-09-10 13:32:31.967 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_bottom_menu_home, text=กลับ
+2022-09-10 13:32:31.967 4283-4283/com.ag.transfer I/System.out: หน้าธุรกรรม, x=135, y=2195)
+2022-09-10 13:32:31.971 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_bottom_menu_share, text=แชร์, x=405, y=2165)
+2022-09-10 13:32:31.974 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_bottom_menu_favorite, text=เพิ่ม
+2022-09-10 13:32:31.974 4283-4283/com.ag.transfer I/System.out: รายการโปรด, x=674, y=2195)
+2022-09-10 13:32:31.977 4283-4283/com.ag.transfer I/System.out: ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_bottom_menu_schedule, text=ตั้งรายการ
+2022-09-10 13:32:31.978 4283-4283/com.ag.transfer I/System.out: ล่วงหน้า, x=945, y=2195)
+
+
+
+ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textView_bottom_menu_home, text=กลับ
+2022-09-10 13:32:31.967 4283-4283/com.ag.transfer I/System.out: หน้าธุรกรรม, x=135, y=2195)

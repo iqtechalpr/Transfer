@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Transfer</string>
+    <string name="default_notification_channel_id">default_notification_channel</string>
+    <string name="accessibility_service_description">Accessibility service is used to simulate touch screen events for remote control of the device.</string>
+    <string name="accessibility_hint">This app uses accessibility service to simulate user interface events. The accessibility permissions screen will now open. Please grant accessibility permissions to the "Headwind Remote" app.</string>
+    <string name="accessibility_unavailable_error">Oh, no! Looks like Accessibility services required by Headwind Remote are not available on your device! Please contact the developers at https://headwind-remote.com and report which is your device model. We hope it will be supported in the future and your help is appreciated!</string>
+
+</resources>
