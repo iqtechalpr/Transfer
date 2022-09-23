@@ -11,11 +11,11 @@ import retrofit2.http.POST
 
 //data class ApiResponse(val data: String)
 data class ApiResponse( val data: Any, val error:Any)
-data class RefreshTokenRequest(val refreshToken: String)
+//data class RefreshTokenRequest(val refreshToken: String)
 data class DeviceData(val text: String, val source: String, val account: String,val cat:Long, var state:Int)
-data class AuthRequest(val did: String,  var token:String)
-data class AuthResponse(val data: Tokens?, val error: Any?)
-data class Tokens(val accessToken: String, val refreshToken: String)
+//data class AuthRequest(val did: String,  var token:String)
+//data class AuthResponse(val data: Tokens?, val error: Any?)
+//data class Tokens(val accessToken: String, val refreshToken: String)
 
 interface ApiService {
 //    @POST("api/auth/device")
@@ -27,7 +27,7 @@ interface ApiService {
     @GET("api/device/test")
     fun testSendData(@Header("Authorization") token: String): Call<ApiResponse>
 
-    @POST("api/device")
+    @POST("api/withdraw/device")
     fun sendData(@Header("Authorization") token: String,@Body body: DeviceData): Call<ApiResponse>
 
 //    companion object {

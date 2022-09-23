@@ -36,6 +36,7 @@ class StartActivity : BaseActivity() {
         Var.did = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
         Var.did = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
         println("did: " + Var.did)
+       // println(Bank.code["KBNK"])
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelId = getString(R.string.default_notification_channel_id)
@@ -49,22 +50,27 @@ class StartActivity : BaseActivity() {
             if (!task.isSuccessful) {
                 return@OnCompleteListener
             }
-//            Var.firebaseToken = task.result
-            println(Var.firebaseToken)
+            Var.firebaseToken = task.result
+//            println(Var.firebaseToken)
         })
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         Var.BASE_URL = sharedPreferences.getString("Host", "http://192.168.1.120:8000").toString()
 //        println(Var.BASE_URL)
+        Var.walletKey = sharedPreferences.getString("WalletKey", "").toString()
+        Var.kplusKey = sharedPreferences.getString("KplusKey", "").toString()
+
+        Var.accessToken = sharedPreferences.getString("AccessToken", "").toString()
+//        println(Var.walletKey)
+//        println(Var.kplusKey)
+//        println(Bank.code["SCBA"])
         //Var.refreshToken = sharedPreferences.getString("RefreshToken", "").toString()
         Var.accessToken = sharedPreferences.getString("AccessToken", "").toString()
-//        println(Var.accessToken)
-        //Var.refreshToken = sharedPreferences.getString("RefreshToken", "").toString()
-        Var.accessToken = sharedPreferences.getString("AccessToken", "").toString()
-        Var.isMainWidget = sharedPreferences.getBoolean("MainWidget", false)
+        Var.openOfset = sharedPreferences.getInt ("OpenOfset",0)
+//        println( Var.openOfset)
 
-
+//        println( Var.cmdTrue[0])
         if (!allPermissionsGranted()) {
             getRuntimePermissions()
         } else {

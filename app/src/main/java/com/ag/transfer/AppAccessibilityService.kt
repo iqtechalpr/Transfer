@@ -2,6 +2,8 @@ package com.ag.transfer
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.GestureDescription
+import android.app.Activity
+import android.app.ActivityManager
 import android.content.Intent
 import android.graphics.Path
 import android.graphics.Rect
@@ -36,17 +38,15 @@ class AppAccessibilityService : AccessibilityService() {
     private var idAccount = ""
     private var idAmount = ""
 
-    private val cmds: ArrayList<CmdModel> = ArrayList()
 
+    private val withdraws: ArrayList<WithdrawModel> = ArrayList()
     private var index = 0
-    private var password = ""
-    private var account = ""
-    private var amount = ""
-    private var bankRef = ""
-    private var bankDate = ""
+    private var wdIndex = 0
 
     override fun onCreate() {
         super.onCreate()
+        Var.cmdKplusInit()
+        Var.cmdTrueInit()
         println("Accessibility Service start")
     }
 
@@ -55,27 +55,24 @@ class AppAccessibilityService : AccessibilityService() {
             return START_STICKY
         }
         when (intent.action) {
-            "TRUE" -> {
+            "withdraw" -> {
                 val action = intent.getStringExtra("action")
                 val cmds = intent.getStringExtra("cmd").toString()
-                if (action == "withdraw") {
-                    val cmd = cmds.split(",")
-                    isChildPrint = false
-                    isKplus = false
-                    withdrawTrue(cmd[0], cmd[1], cmd[2])
-                } else if (action == "balance") {
-
-                }
-
-            }
-            "KPLUS" -> {
-                val action = intent.getStringExtra("action")
-                val cmds = intent.getStringExtra("cmd").toString()
+                isChildPrint = false
                 val cmd = cmds.split(",")
-                if (action == "withdraw") {
-                    isChildPrint = false
+                println(cmd)
+                withdraws.add(WithdrawModel(cmd[0], cmd[1], cmd[2], cmd[3].toInt(), "", ""))
+                if (withdraws.size > 1) return START_STICKY
+                wdIndex = withdraws.size - 1// withdraws.indexOfFirst { it.id == wdId }
+                if (action == "true") {
+                    isKplus = false
+                    withdrawTrue(cmd[2], cmd[3])
+                } else if (action == "kplus") {
                     isKplus = true
-                    withdrawKPlus(cmd[0], cmd[1], cmd[2], cmd[3])
+                    withdrawKPlus(cmd[2], cmd[3])
+                } else if (action == "clear") {
+//                    withdraws.clear()
+                    println(withdraws.size)
                 }
             }
             "control" -> {
@@ -98,17 +95,46 @@ class AppAccessibilityService : AccessibilityService() {
                         isChildPrint = false
                         getChild()
                         val jsArray = Gson().toJson(Var.childs)
-                        val body = DeviceData(jsArray, "TRUE/BOT", Var.did, System.currentTimeMillis(), 0)
+                        val body =
+                            DeviceData(jsArray, "BOT", Var.did, System.currentTimeMillis(), 0)
                         sendData(body)
                     }
                     "childs" -> {
                         isChildPrint = true
                         getChild()
                     }
-                    "test" -> {
-                        sendTestData()
+                    "kill" -> {
+                        val cmd = intent.getStringExtra("cmd")
+//                        println("kill: $cmd")
+                        val am = getSystemService(Activity.ACTIVITY_SERVICE) as ActivityManager
+                        am.killBackgroundProcesses(cmd)
                     }
+                    "unlock" -> {
+                        isChildPrint = true
+                        getChild()
+                        if (Var.childs.size < 2) {
+                            val cX = Var.displayWidth / 2
+                            val cY = Var.displayHeight / 2
+                            val cY4 = Var.displayHeight / 4
+                            println("$cX, $cY ,$cY4")
+                            onTap(cX.toFloat(), cY.toFloat(), 100)
+                            Thread.sleep(300)
+                            onTap(cX.toFloat(), cY.toFloat(), 100)
+                            Thread.sleep(500)
+                            onSwipe(
+                                cX.toFloat() - cY4,
+                                cY.toFloat(),
+                                cX.toFloat(),
+                                cY.toFloat(),
+                                100
+                            )
+                        }
+                    }
+
                 }
+            }
+            "test" -> {
+                sendTestData()
             }
         }
         return START_STICKY
@@ -117,7 +143,7 @@ class AppAccessibilityService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         val intType = event?.eventType
         if (intType == 32) {
-            println("TYPE_WINDOW_STATE_CHANGED")
+            //println("TYPE_WINDOW_STATE_CHANGED")
             if (!isStateChanged) {
                 isStateChanged = true
                 if (!isUseCheckState) return
@@ -143,48 +169,53 @@ class AppAccessibilityService : AccessibilityService() {
         }
     }
 
-    private fun withdrawKPlus(password: String, bankIndex: String, account: String, amount: String) {
-        println("Kplus $bankIndex $account,$amount")
-        this.password = password
-        this.account = account
-        this.amount = amount
-        cmds.clear()
-        var i = 0
-        cmds.add(CmdModel(i++, "global", "HOME", "", false, 400))
-        cmds.add(CmdModel(i++, "tap", "", "K PLUS", true, 0))
-        cmds.add(CmdModel(i++, "transfer", "", "โอนเงิน", true, 0))
-        cmds.add(CmdModel(i++, "password", "", "บัญชีธนาคารอื่น", true, 0))
-//        cmds.add(CmdModel(i++, "bank", bankIndex, "", true, 0))
-        cmds.add(CmdModel(i++, "tap", "", bankIndex, true, 0))
-        cmds.add(CmdModel(i++, "text", "กรอกเลขบัญชี", "0.00", true, 200))
-//        cmds.add(CmdModel(i++, "tap", "com.kasikorn.retail.mbanking.wap:id/textview_navigation_next", "", false, 0))
-
-        cmds.add(CmdModel(i++, "tap", "", "ต่อไป", false, 0))
-        cmds.add(CmdModel(i++, "tap", "", "ยืนยัน", true, 0))
-        cmds.add(CmdModel(i++, "tap", "com.kasikorn.retail.mbanking.wap:id/textView_bottom_menu_home", "", true, 0))
-        cmds.add(CmdModel(i++, "tap", "", "หน้าแรก", true, 0))
-        cmds.add(CmdModel(i++, "global", "HOME", "", false, 0))
-//        cmds.add(CmdModel(i++, "tap", "", "Transfer", true, 400))
-
-        bankDate = ""
-        bankRef = ""
+    private fun withdrawKPlus(bankAccount: String, amount: String) {
+        println("Kplus  $bankAccount,$amount")
         index = 0
         processCmdKPlus()
     }
 
-    private fun processCmdKPlus() {
-        if (cmds.size == index) {
-            println("finish command: $index")
-            println("bankRef:$bankRef,bankDate:$bankDate")
-            if (bankDate != "" && bankRef != "") {
-                val body = DeviceData("bankRef:$bankRef,bankDate:$bankDate", "TRUE/BOT", Var.did, System.currentTimeMillis(), 0)
-                println(body)
-                sendData(body)
+    private fun checkNextProcess(source: String) {
+        val bankRef = withdraws[wdIndex].bankRef
+        val bankDate = withdraws[wdIndex].bankDate.trim()
+        val id = withdraws[wdIndex].id
+        println("source:$source,bankRef:$bankRef,bankDate:$bankDate")
+        if (bankDate != "" && bankRef != "") {
+            //body.account, body.source, body.text)
+//            val body = DeviceData("id:$id,bankRef:$bankRef,bankDate:$bankDate", source, Var.did, System.currentTimeMillis(), 0)
+            val body = DeviceData("$bankRef,$bankDate",source,id, System.currentTimeMillis(),0)
+//            println(body)
+            sendData(body)
+        }
+        withdraws.removeAt(wdIndex)
+        if (withdraws.size > 0) {
+            wdIndex = withdraws.size - 1
+            val wd = withdraws[wdIndex]
+            if (wd.bankCode == "TRUE") {
+                isKplus = false
+                withdrawTrue(wd.bankAccount, wd.amount.toString())
+            } else {
+                isKplus = true
+                withdrawKPlus(wd.bankAccount, wd.amount.toString())
             }
+        } else {
+            getChild()
+            val child = findChildByText("Transfer") ?: return
+            var x = child.x
+            var y = child.y
+            y -= Var.openOfset
+            onTap(x.toFloat(), y.toFloat(), 100)
+        }
+    }
+
+    private fun processCmdKPlus() {
+        if (Var.cmdKplus.size == index) {
+            println("finish KPlus: $index")
+            checkNextProcess("KBNK")
             return
         }
-        val cmd: CmdModel = cmds[index]
-        println(cmd)
+        val cmd: CmdModel = Var.cmdKplus[index]
+//        println(cmd)
         if (cmd.cmd == "text") {
             Thread.sleep(500)
             nodeAccount = null
@@ -192,61 +223,135 @@ class AppAccessibilityService : AccessibilityService() {
             idAccount = cmd.id
             idAmount = cmd.text
         }
-        if (cmd.text == "ยืนยัน")  Thread.sleep(500)
+        if (cmd.text == "ยืนยัน" || cmd.text == "กลับหน้าธุรกรรม") Thread.sleep(1000)
         if (cmd.isFindChild) getChild()
         var child: ChildModel? = null
-        if (cmd.cmd == "tap" || cmd.cmd == "password" || cmd.cmd == "transfer") {
-            child = if (cmd.id == "") findChildByText(cmd.text)
-            else findChildById(cmd.id)
-        }
-        isUseCheckState = false
-        println(child)
-        when (cmd.cmd) {
-            "transfer" -> {
+
+        child = if (cmd.id == "") findChildByText(cmd.text)
+        else findChildById(cmd.id)
+
+        if (cmd.text == "ยืนยัน") {
+            if (child == null) {
+                Thread.sleep(1000)
+                getChild()
+                child = findChildByText(cmd.text)
                 if (child == null) {
-                    val c = findChildById("com.kasikorn.retail.mbanking.wap:id/textview_confirm")
-                    if (c == null) return
-                    else onTap(c.x.toFloat(), c.y.toFloat(), 100)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        isUseCheckState = true
-                    }, 3000)
-                    return
-                } else {
-                    onTap(child!!.x.toFloat(), child!!.y.toFloat(), 100)
+                    Thread.sleep(1000)
+                    getChild()
+                    child = findChildByText(cmd.text)
                 }
             }
-            "tap" -> {
-                if (child == null) {
-                    println("child index $index null")
-                    return
-                }
-                if (cmd.id == "com.kasikorn.retail.mbanking.wap:id/textView_bottom_menu_home") {
+        }
 
+        println(child)
+        if (cmd.text == "กลับหน้าธุรกรรม") {
+            Thread.sleep(1000)
+            getChild()
+            child = findChildById("com.kasikorn.retail.mbanking.wap:id/textView_datetime")
+            if (child == null) {
+                Thread.sleep(1000)
+                getChild()
+                child = findChildById("com.kasikorn.retail.mbanking.wap:id/textView_datetime")
+                if (child == null) {
+                    Thread.sleep(1000)
+                    getChild()
+                    //findChildByText(cmd.text)
                 }
-                var x = child.x
-                var y = child.y
-                if (Var.isMainWidget) {
-                    if (index == 1 ) {//|| index == cmds.size - 1
-//                        x -= 40
-                        y -= 60
+            }
+            val c1 = findChildById("com.kasikorn.retail.mbanking.wap:id/textView_datetime")
+            if (c1 != null) {
+                withdraws[wdIndex].bankDate = c1.text
+//                println("${c1.text}")
+            }
+            val c2 = findChildById("com.kasikorn.retail.mbanking.wap:id/textView_finance_number")
+            if (c2 != null) {
+                withdraws[wdIndex].bankRef = c2.text
+//                println("${c2.text}")
+            }
+            index++
+            onGlobalAction("BACK")
+            isUseCheckState = true
+            return
+        }
+        if (cmd.cmd == "banks") {
+            Thread.sleep(500)
+            val bankValue = Bank.code[withdraws[wdIndex].bankCode]
+            child = findChildByText(bankValue!!)
+            if (child == null) {
+                Thread.sleep(1000)
+                getChild()
+                child = findChildByText(bankValue!!)
+            }
+        }
+        isUseCheckState = false
+//        println(index)
+
+        when (cmd.cmd) {
+            "tap" -> {
+                if (child == null) return
+                onTap(child.x.toFloat(), child.y.toFloat(), 100)
+            }
+            "home" -> {
+                if (child == null) {
+                    val c = findChildById("com.kasikorn.retail.mbanking.wap:id/textview_confirm")
+                    if (c != null) {
+                        onTap(c.x.toFloat(), c.y.toFloat(), 100)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            isUseCheckState = true
+                        }, 1000)
+                        return
+                    }
+                    val c1 = findChildById("com.kasikorn.retail.mbanking.wap:id/textView_availableBalance")
+                    if (c1 != null) {
+                        println(c1.text)
+                        index += 2
+                        processCmdKPlus()
+                        return
+                    }
+                    if (cmd.cmd == "home") {
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            onGlobalAction("Home")
+                            index = 1
+                            isUseCheckState = true
+                        }, 1000)
+                        return
+                    }
+                } else {
+                    val c1 = findChildById("com.kasikorn.retail.mbanking.wap:id/textView_availableBalance")
+                    if (c1 != null) {
+                        println(c1.text)
+                        index += 2
+                        processCmdKPlus()
+                        return
+                    } else {
+                        onTap(child.x.toFloat(), child.y.toFloat(), 100)
                     }
                 }
-//                println("${x}, $y")
+            }
+            "banks" -> {
+                if (child == null) return
+                onTap(child.x.toFloat(), child.y.toFloat(), 100)
+            }
+            "open" -> {
+                if (child == null) return
+                var x = child.x
+                var y = child.y
+                y -= Var.openOfset
                 onTap(x.toFloat(), y.toFloat(), 100)
             }
             "text" -> {
-//ChildModel(id=com.kasikorn.retail.mbanking.wap:id/textview_amount, text=3,028.34, x=406, y=426)
                 val c = findChildById("com.kasikorn.retail.mbanking.wap:id/textview_amount")
-                if (c!= null) {
+                if (c != null) {
                     var text = c.text
                     text = text.replace(",", "")
                     text = text.replace(",", "")
                     val balance = text.toFloat()
+                    val amount = withdraws[wdIndex].amount
                     if (balance < amount.toFloat()) {
                         isStateChanged = false
                         isUseCheckState = false
                         val body = DeviceData("balance ($balance)  < amount ($amount)", "TRUE/BOT", Var.did, System.currentTimeMillis(), 0)
-                        println(body)
+//                        println(body)
                         sendData(body)
                         onGlobalAction("BACK")
                         Thread.sleep(500)
@@ -254,27 +359,27 @@ class AppAccessibilityService : AccessibilityService() {
                         Thread.sleep(500)
                         onGlobalAction("BACK")
                         Thread.sleep(200)
-                        index = cmds.size //-2
+                        index = Var.cmdKplus.size
                         processCmdKPlus()
                         return
                     }
                 }
-                if (nodeAccount!= null) {
+                if (nodeAccount != null) {
                     val rect = Rect()
                     nodeAccount!!.getBoundsInScreen(rect)
-                    onTap(rect.centerX().toFloat(),rect.centerY().toFloat(),100)
+                    onTap(rect.centerX().toFloat(), rect.centerY().toFloat(), 100)
                     Thread.sleep(500)
-                    setText(nodeAccount!!, account)
+                    setText(nodeAccount!!, withdraws[wdIndex].bankAccount)
                     Thread.sleep(500)
                     onGlobalAction("BACK")
                 }
-                if (nodeAmount!= null) {
+                if (nodeAmount != null) {
                     val rect = Rect()
                     nodeAmount!!.getBoundsInScreen(rect)
                     Thread.sleep(500)
-                    onTap(rect.centerX().toFloat(),rect.centerY().toFloat(),100)
+                    onTap(rect.centerX().toFloat(), rect.centerY().toFloat(), 100)
                     Thread.sleep(500)
-                    setText(nodeAmount!!, amount)
+                    setText(nodeAmount!!, withdraws[wdIndex].amount.toString())
                     Thread.sleep(500)
                     onGlobalAction("BACK")
                     Thread.sleep(200)
@@ -288,85 +393,48 @@ class AppAccessibilityService : AccessibilityService() {
                     if (Var.childs[0].id == "com.kasikorn.retail.mbanking.wap:id/textview_pin_title_activity") {
                         println("kplus password")
                         for (i in 0..5) {
-                            var key = password.subSequence(i, i + 1)
+                            var key = Var.kplusKey.subSequence(i, i + 1)
                             val c = findChildByText(key.toString()) ?: return
                             onTap(c.x.toFloat(), c.y.toFloat(), 100)
                             Thread.sleep(250)
                         }
-                        Thread.sleep(500)
-                        isUseCheckState = true
-                        return
+                        Thread.sleep(1000)
                     }
                 } else {
                     onTap(child.x.toFloat(), child.y.toFloat(), 100)
                     Thread.sleep(300)
+                    index++
                 }
             }
         }
         index++
         if (cmd.delay == 0) {
-//            if (cmd.id == "com.kasikorn.retail.mbanking.wap:id/textview_navigation_next") {
+            isUseCheckState = true
+//            if (cmd.text == "ยืนยัน" ) {
 //                Handler(Looper.getMainLooper()).postDelayed({
 //                    isUseCheckState = true
-//                    println("wat 2000")
-//                }, 1000)
+//                }, 2000)
 //            } else {
 //
 //            }
-            isUseCheckState = true
         } else {
             Thread.sleep(cmd.delay.toLong())
-            processCmdTrue()
+            processCmdKPlus()
         }
     }
 
-
-    private fun withdrawTrue(password: String, account: String, amount: String) {
-        println("$account,$amount")
-        this.password = password
-        this.account = account
-        this.amount = amount
-        cmds.clear()
-        var i = 0
-        cmds.add(CmdModel(i++, "global", "HOME", "", false, 400))
-        cmds.add(CmdModel(i++, "tap", "", "TrueMoney", true, 0))
-        cmds.add(CmdModel(i++, "password", "th.co.truemoney.wallet:id/sliding_btnTextTransfer", "th.co.truemoney.wallet:id/pinEditText", true, 0))
-        cmds.add(CmdModel(i++, "tap", "", "th.co.truemoney.wallet:id/sliding_btnTextTransfer", true, 0))
-
-        cmds.add(CmdModel(i++, "tap", "th.co.truemoney.wallet:id/edt_ref", "", true, 0))
-        cmds.add(CmdModel(i++, "text", "th.co.truemoney.wallet:id/common_edt", "", true, 200))
-        cmds.add(CmdModel(i++, "global", "BACK", "", false, 200))
-        cmds.add(CmdModel(i++, "global", "BACK", "", false, 0))
-        cmds.add(CmdModel(i++, "text", "", "th.co.truemoney.wallet:id/editTextAmount", true, 200))
-        cmds.add(CmdModel(i++, "tap", "th.co.truemoney.wallet:id/btnTransferOrLogin", "", false, 0))
-        cmds.add(CmdModel(i++, "tap", "th.co.truemoney.wallet:id/transferConfirmButton", "", true, 0))
-
-//        cmds.add(CmdModel(i++, "tap", "th.co.truemoney.wallet:id/btn_save", "", true, 1000))//text=บันทึกใบเสร็จ
-//        cmds.add(CmdModel(i++, "tap", "th.co.truemoney.wallet:id/textChat", "", false, 0)) //text=เรียบร้อย,
-
-        cmds.add(CmdModel(i++, "tap", "th.co.truemoney.wallet:id/textChat", "", true, 0))
-        cmds.add(CmdModel(i++, "global", "HOME", "", false, 0))
-        cmds.add(CmdModel(i++, "tap", "", "Transfer", true, 400))
-//index = 14
-        // ChildModel(id=th.co.truemoney.wallet:id/txtTitle, text=ไม่สามารถทำรายการได้, x=540, y=1051)
-        bankDate = ""
-        bankRef = ""
+    private fun withdrawTrue(account: String, amount: String) {
+        println("withdraw true: $account,$amount")
         index = 0
         processCmdTrue()
     }
 
     private fun processCmdTrue() {
-        if (cmds.size == index) {
-            println("finish command: $index")
-            println("bankRef:$bankRef,bankDate:$bankDate")
-            if (bankDate != "" && bankRef != "") {
-                val body = DeviceData("bankRef:$bankRef,bankDate:$bankDate", "TRUE/BOT", Var.did, System.currentTimeMillis(), 0)
-                println(body)
-                sendData(body)
-            }
+        if (Var.cmdTrue.size == index) {
+            checkNextProcess("TRUE")
             return
         }
-        val cmd: CmdModel = cmds[index]
+        val cmd: CmdModel = Var.cmdTrue[index]
 //        println(cmd)
         if (cmd.cmd == "text") {
             nodeAccount = null
@@ -380,7 +448,7 @@ class AppAccessibilityService : AccessibilityService() {
 
         if (cmd.isFindChild) getChild()
         var child: ChildModel? = null
-        if (cmd.cmd == "tap" || cmd.cmd == "password") {
+        if (cmd.cmd == "tap" || cmd.cmd == "password" || cmd.cmd == "open") {
             child = if (cmd.id == "") findChildByText(cmd.text)
             else findChildById(cmd.id)
         }
@@ -393,12 +461,13 @@ class AppAccessibilityService : AccessibilityService() {
                     return
                 }
                 if (cmd.id == "th.co.truemoney.wallet:id/edt_ref") {
-                    val childBalance = findChildById("th.co.truemoney.wallet:id/widget_balance_number")
+                    val childBalance =
+                        findChildById("th.co.truemoney.wallet:id/widget_balance_number")
                     if (childBalance != null) {
                         val balance = childBalance.text.toFloat()
 //                        println("balance $balance")
+                        val amount = withdraws[wdIndex].amount
                         if (balance < amount.toFloat()) {
-
                             isStateChanged = false
                             isUseCheckState = false
                             val body = DeviceData("balance ($balance)  < amount ($amount)", "TRUE/BOT", Var.did, System.currentTimeMillis(), 0)
@@ -406,7 +475,7 @@ class AppAccessibilityService : AccessibilityService() {
                             sendData(body)
                             onGlobalAction("BACK")
                             Thread.sleep(200)
-                            index = cmds.size -2
+                            index = Var.cmdTrue.size - 2
                             processCmdTrue()
 //                            setTransferHome()
                             return
@@ -415,29 +484,25 @@ class AppAccessibilityService : AccessibilityService() {
                 } else if (cmd.id == "th.co.truemoney.wallet:id/textChat") {
                     var i = findChildIndexByText("หมายเลขการทำรายการ")
                     if (i > 0) {
-//                        println(Var.childs[i + 1].text)
-                        bankRef = Var.childs[i + 1].text
+                        withdraws[wdIndex].bankRef = Var.childs[i + 1].text
                     }
                     i = findChildIndexByText("วันที่ทำรายการ")
                     if (i > 0) {
-//                        println(Var.childs[i + 1].text)
-                        bankDate = Var.childs[i + 1].text
+                        withdraws[wdIndex].bankDate = Var.childs[i + 1].text
                     }
                 }
+                onTap(child.x.toFloat(), child.y.toFloat(), 100)
+            }
+            "open" -> {
+                if (child == null) return
                 var x = child.x
                 var y = child.y
-                if (Var.isMainWidget) {
-                    if (index == 1 || index == cmds.size - 1) {
-//                        x -= 40
-                        y -= 60
-                    }
-                }
-//                println("${x}, $y")
+                y -= Var.openOfset
                 onTap(x.toFloat(), y.toFloat(), 100)
             }
             "text" -> {
-                nodeAccount?.let { setText(it, account) }
-                nodeAmount?.let { setText(it, amount) }
+                nodeAccount?.let { setText(it, withdraws[wdIndex].bankAccount) }
+                nodeAmount?.let { setText(it, withdraws[wdIndex].amount.toString()) }
             }
             "global" -> {
                 onGlobalAction(cmd.id)
@@ -446,7 +511,7 @@ class AppAccessibilityService : AccessibilityService() {
                 if (child == null) {
                     Thread.sleep(200)
                     println(nodeAccount.toString())
-                    nodeAccount?.let { setText(it, password) }
+                    nodeAccount?.let { setText(it, Var.walletKey) }
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         println("password500")
@@ -471,15 +536,6 @@ class AppAccessibilityService : AccessibilityService() {
         }
     }
 
-//    private fun setTransferHome() {
-//        onAction("Home")
-//        Thread.sleep(400)
-//        isUseCheckState = true
-//        getChild()
-//        val child = findChildByText("Transfer") ?: return
-//        onTap(child.x.toFloat(), child.y.toFloat(), 100)
-//    }
-
     private fun findChildById(id: String): ChildModel? {
         return Var.childs.find { it.id == id }
     }
@@ -491,7 +547,6 @@ class AppAccessibilityService : AccessibilityService() {
     private fun findChildIndexByText(text: String): Int {
         return Var.childs.indexOfFirst { it.text == text }
     }
-
 
     private fun getChild() {
         val nodeInfo = rootInActiveWindow
@@ -536,9 +591,11 @@ class AppAccessibilityService : AccessibilityService() {
                     val rect = Rect()
                     n.getBoundsInScreen(rect)
                     try {
-                        val child = ChildModel(id, text, rect.centerX(), rect.centerY())
-                        if (isChildPrint) println(child)
-                        Var.childs.add(child)
+                        if (rect.centerX() > 0) {
+                            val child = ChildModel(id, text, rect.centerX(), rect.centerY())
+                            if (isChildPrint) println(child)
+                            Var.childs.add(child)
+                        }
                     } catch (e: Exception) {
                     }
                 }
@@ -564,16 +621,16 @@ class AppAccessibilityService : AccessibilityService() {
         //println("tap, result= " + result) val result =
     }
 
-//    private fun onSwipe(x1: Float, y1: Float, x2: Float, y2: Float, duration: Long) {
-//        val gestureBuilder = GestureDescription.Builder()
-//        val clickPath = Path()
-//        clickPath.moveTo(x1, y1)
-//        clickPath.lineTo(x2, y2)
-//        val clickStroke = GestureDescription.StrokeDescription(clickPath, 0, duration)
-//        gestureBuilder.addStroke(clickStroke)
-//        dispatchGesture(gestureBuilder.build(), null, null)
-//        //println("swipe, result= " + result) val result =
-//    }
+    private fun onSwipe(x1: Float, y1: Float, x2: Float, y2: Float, duration: Long) {
+        val gestureBuilder = GestureDescription.Builder()
+        val clickPath = Path()
+        clickPath.moveTo(x1, y1)
+        clickPath.lineTo(x2, y2)
+        val clickStroke = GestureDescription.StrokeDescription(clickPath, 0, duration)
+        gestureBuilder.addStroke(clickStroke)
+        dispatchGesture(gestureBuilder.build(), null, null)
+        //println("swipe, result= " + result) val result =
+    }
 
     private fun onGlobalAction(cmd: String) {
         var intAction = GLOBAL_ACTION_HOME
@@ -596,7 +653,8 @@ class AppAccessibilityService : AccessibilityService() {
         call.enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, res: Response<ApiResponse>) {
                 println(res.body()?.data)
-                Toast.makeText(applicationContext, res.body()?.data.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, res.body()?.data.toString(), Toast.LENGTH_SHORT)
+                    .show()
             }
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
@@ -608,7 +666,9 @@ class AppAccessibilityService : AccessibilityService() {
     private fun getImage() {
         onGlobalAction("SCREEN")
         Thread.sleep(750)
-        val files = File(Environment.getExternalStorageDirectory().toString() + "/DCIM/Screenshots").listFiles()
+        val files = File(
+            Environment.getExternalStorageDirectory().toString() + "/DCIM/Screenshots"
+        ).listFiles()
         val i = files.size
         if (i > 0) {
             val file = files[i - 1]
@@ -654,7 +714,8 @@ class AppAccessibilityService : AccessibilityService() {
         call.enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, res: Response<ApiResponse>) {
                 println(res.body()?.data)
-                Toast.makeText(applicationContext, res.body()?.data.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, res.body()?.data.toString(), Toast.LENGTH_SHORT)
+                    .show()
             }
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {

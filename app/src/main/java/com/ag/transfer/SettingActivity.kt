@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
 import kotlin.system.exitProcess
@@ -18,6 +19,9 @@ class SettingActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     var isExit = false
     lateinit var swMainWidget: Switch
+    lateinit var edtWalletKey:EditText
+    lateinit var edtKPlusKey:EditText
+    lateinit var edtOpenOfset:EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,16 +31,28 @@ class SettingActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        swMainWidget = findViewById (R.id.swMainWidget)
-        swMainWidget.isChecked = Var.isMainWidget
+//        swMainWidget = findViewById (R.id.swMainWidget)
+//        swMainWidget.isChecked = Var.isMainWidget
+
+        edtWalletKey= findViewById(R.id.edtWalletKey)
+        edtWalletKey.setText(Var.walletKey)
+        edtKPlusKey= findViewById(R.id.edtKPlusKey)
+        edtKPlusKey.setText(Var.kplusKey)
+
+        edtOpenOfset= findViewById(R.id.edtOpenOfset)
+        edtOpenOfset.setText(Var.openOfset.toString())
+
 
         val tvUrl = findViewById<TextView>(R.id.tvUrl)
         tvUrl.setText(Var.BASE_URL)
 
+        val tvDid = findViewById<TextView>(R.id.tvSettingDid)
+        tvDid.setText(Var.did)
         val btnLogout = findViewById<Button>(R.id.btnLogout)
         btnLogout.setOnClickListener {
             logout()
         }
+
 //        val openNotifyButton = findViewById<Button>(R.id.openNotifyButton)
 //        openNotifyButton.setOnClickListener {
 //            startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
@@ -95,9 +111,15 @@ class SettingActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Var.isMainWidget = swMainWidget.isChecked
+//        Var.isMainWidget = swMainWidget.isChecked
+        Var.walletKey = edtWalletKey.text.toString()
+        Var.kplusKey = edtKPlusKey.text.toString()
+        Var.openOfset = edtOpenOfset.text.toString().toInt()
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putBoolean("MainWidget", Var.isMainWidget)
+//        editor.putBoolean("MainWidget", Var.isMainWidget)
+        editor.putString("WalletKey",Var.walletKey)
+        editor.putString("KplusKey",Var.kplusKey)
+        editor.putInt("OpenOfset",Var.openOfset)
         editor.commit()
 
         if (isExit) exitProcess(0)

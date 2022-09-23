@@ -25,10 +25,10 @@ class MessagingService : FirebaseMessagingService() {
 //            println("data : ${remoteMessage.data}")
              try {
                 val topic = remoteMessage.data.getValue("topic")
-                if (topic == "TRUE" || topic == "KPLUS" || topic == "control") {
+                if (topic == "withdraw"  || topic == "control") {
                     val action = remoteMessage.data.getValue("action").toString()
                     val cmd = remoteMessage.data.getValue("cmd").toString()
-                    println("$topic,$action,$cmd")
+//                    println("$topic,$action,$cmd")
                     access(topic ,action, cmd)
                 } else if (topic == "accessToken") {
                     Var.accessToken = remoteMessage.data.getValue("cmd").toString()

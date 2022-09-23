@@ -10,6 +10,7 @@ import android.os.Environment
 import android.provider.Settings
 import android.provider.Settings.SettingNotFoundException
 import android.text.TextUtils.SimpleStringSplitter
+import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
@@ -30,43 +31,47 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        title = "Transfer 0.0.1"
+        title = "Transfer 0.0.2"
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        val displayMetrics = DisplayMetrics()
+        val windowsManager = applicationContext.getSystemService(WINDOW_SERVICE) as WindowManager
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
 
+        Var.displayWidth = displayMetrics.widthPixels
+        Var.displayHeight = displayMetrics.heightPixels
+//        println("$width , $height")//  1080 , 2167
 
         val buttonTest = findViewById<Button>(R.id.buttonTest)
 /*
         val obj1 = ChildModel("id1","text1",1,2)
         Var.childs.add(obj1 )
-        val obj2 = ChildModel("id1","text2",3,4)
+        val obj2 = ChildModel("id2","text2",3,4)
         Var.childs.add(obj2 )
         val obj3 = ChildModel("id3","text3",1,2)
         Var.childs.add(obj3 )
-        println(Var.childs[0])
-        val i = Var.childs.indexOfFirst { it.text == "text2" }
+
+//        val i = Var.childs.indexOfFirst { it.text == "text2" }
+          val i = Var.childs.indexOfFirst { it.id == "id2" }
         println(i)
+        Var.childs.removeAt(i)
+        println(Var.childs)
 
-       val child = Var.childs.find { id -> "id".equals(id) }
-       val child = Var.childs.indexOfFirst { it.id == "id3" }
-
-       val child2 = Var.childs.groupByTo() { it.id == "id1"  }//and it.text == "text2"
-       println(child2)
 
 var str = "089-150-8338"
        var output = str.replace("-", "")
        output = str.replace("-", "")
        print(output)
 */
-        var text ="3,028.34"
-        text = text.replace(",", "")
-        println(text)
+
 
         buttonTest.setOnClickListener {
 //            println(resources.configuration.orientation)
 //            println("test")
             //startActivity(Intent(this, LockScreenActivity::class.java))
             println(Environment.getExternalStorageDirectory())
-            File(Environment.getExternalStorageDirectory().toString() + "/DCIM/Screenshots").listFiles().forEach { println(it) }
+            File(
+                Environment.getExternalStorageDirectory().toString() + "/DCIM/Screenshots"
+            ).listFiles().forEach { println(it) }
 
         }
     }
@@ -112,7 +117,9 @@ var str = "089-150-8338"
     private fun reportAccessibilityUnavailable() {
         AlertDialog.Builder(this)
             .setMessage(R.string.accessibility_unavailable_error)
-            .setPositiveButton("Exit", DialogInterface.OnClickListener { dialog, which -> exitApp() })
+            .setPositiveButton(
+                "Exit",
+                DialogInterface.OnClickListener { dialog, which -> exitApp() })
             .setCancelable(false)
             .create()
             .show()
