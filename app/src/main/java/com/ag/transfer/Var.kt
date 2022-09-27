@@ -17,6 +17,8 @@ class Var {
         var displayWidth = 0
         var displayHeight = 0
 
+        var withdrawData: ArrayList<WithdrawData> = ArrayList()
+
         val cmdTrue: ArrayList<CmdModel> = ArrayList()
         val cmdKplus: ArrayList<CmdModel> = ArrayList()
 

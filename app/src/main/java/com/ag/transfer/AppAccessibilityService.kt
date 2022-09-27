@@ -18,6 +18,7 @@ import com.google.gson.Gson
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -95,8 +96,8 @@ class AppAccessibilityService : AccessibilityService() {
                         isChildPrint = false
                         getChild()
                         val jsArray = Gson().toJson(Var.childs)
-                        val body =
-                            DeviceData(jsArray, "BOT", Var.did, System.currentTimeMillis(), 0)
+//                        val body = DeviceData(jsArray, "BOT", Var.did, System.currentTimeMillis(), 0)
+                        val body = WithdrawData("child", Var.did, "", "",0F, jsArray, "", System.currentTimeMillis(), 2)
                         sendData(body)
                     }
                     "childs" -> {
@@ -179,12 +180,15 @@ class AppAccessibilityService : AccessibilityService() {
         val bankRef = withdraws[wdIndex].bankRef
         val bankDate = withdraws[wdIndex].bankDate.trim()
         val id = withdraws[wdIndex].id
-        println("source:$source,bankRef:$bankRef,bankDate:$bankDate")
+        val account = withdraws[wdIndex].bankCode + "/" + withdraws[wdIndex].bankAccount
+            println("source:$source,bankRef:$bankRef,bankDate:$bankDate")
         if (bankDate != "" && bankRef != "") {
             //body.account, body.source, body.text)
 //            val body = DeviceData("id:$id,bankRef:$bankRef,bankDate:$bankDate", source, Var.did, System.currentTimeMillis(), 0)
-            val body = DeviceData("$bankRef,$bankDate",source,id, System.currentTimeMillis(),0)
+//            val body = DeviceData("$bankRef,$bankDate", source, id, System.currentTimeMillis(), 0)
+            val body = WithdrawData(source, Var.did, id, account ,0F, bankRef, bankDate, System.currentTimeMillis(), 0)
 //            println(body)
+            EventBus.getDefault().post(body)
             sendData(body)
         }
         withdraws.removeAt(wdIndex)
@@ -350,7 +354,8 @@ class AppAccessibilityService : AccessibilityService() {
                     if (balance < amount.toFloat()) {
                         isStateChanged = false
                         isUseCheckState = false
-                        val body = DeviceData("balance ($balance)  < amount ($amount)", "TRUE/BOT", Var.did, System.currentTimeMillis(), 0)
+//                        val body = DeviceData("balance ($balance)  < amount ($amount)", "TRUE/BOT", Var.did, System.currentTimeMillis(), 0)
+                        val body = WithdrawData("TRUE", Var.did, "", "",balance, "", "", System.currentTimeMillis(), 1)
 //                        println(body)
                         sendData(body)
                         onGlobalAction("BACK")
@@ -470,7 +475,8 @@ class AppAccessibilityService : AccessibilityService() {
                         if (balance < amount.toFloat()) {
                             isStateChanged = false
                             isUseCheckState = false
-                            val body = DeviceData("balance ($balance)  < amount ($amount)", "TRUE/BOT", Var.did, System.currentTimeMillis(), 0)
+//                            val body = DeviceData("balance ($balance)  < amount ($amount)", "TRUE/BOT", Var.did, System.currentTimeMillis(), 0)
+                            val body = WithdrawData("TRUE", Var.did, "", "",balance, "", "", System.currentTimeMillis(), 1)
 //                            println(body)
                             sendData(body)
                             onGlobalAction("BACK")
@@ -642,7 +648,7 @@ class AppAccessibilityService : AccessibilityService() {
         performGlobalAction(intAction)
     }
 
-    fun sendData(body: DeviceData) {
+    fun sendData(body: WithdrawData) {
         val retrofit = Retrofit.Builder()
             .baseUrl(Var.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
