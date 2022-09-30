@@ -79,6 +79,7 @@ class AppAccessibilityService : AccessibilityService() {
             "control" -> {
                 val cmd = intent.getStringExtra("cmd")
                 val action = intent.getStringExtra("action")
+//                println(action)
                 when (action) {
                     "image" -> {
                         getImage()

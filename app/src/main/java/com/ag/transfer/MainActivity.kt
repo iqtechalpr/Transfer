@@ -143,25 +143,26 @@ var str = "089-150-8338"
         isAccessibility = isAccessibilityPermissionGranted(this)
         if (!isAccessibility) {
             val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-            try {
-                startActivityForResult(intent, 0)
-            } catch (e: java.lang.Exception) {
-                // Accessibility settings cannot be opened
-                reportAccessibilityUnavailable()
-            }
-//            AlertDialog.Builder(this).setMessage(R.string.accessibility_hint)
-//                .setPositiveButton("Continue", DialogInterface.OnClickListener { dialog, which ->
-//                    val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-//                    try {
-//                        startActivityForResult(intent, 0)
-//                    } catch (e: java.lang.Exception) {
-//                        // Accessibility settings cannot be opened
-//                        reportAccessibilityUnavailable()
-//                    }
-//                })
-//                .setCancelable(false)
-//                .create()
-//                .show()
+//            try {
+//                startActivityForResult(intent, 0)
+//            } catch (e: java.lang.Exception) {
+//                // Accessibility settings cannot be opened
+//                reportAccessibilityUnavailable()
+//            }
+
+            AlertDialog.Builder(this).setMessage(R.string.accessibility_hint)
+                .setPositiveButton("Continue", DialogInterface.OnClickListener { dialog, which ->
+                    val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                    try {
+                        startActivityForResult(intent, 0)
+                    } catch (e: java.lang.Exception) {
+                        // Accessibility settings cannot be opened
+                        reportAccessibilityUnavailable()
+                    }
+                })
+                .setCancelable(false)
+                .create()
+                .show()
         } else {
             println("Accessibility")
         }

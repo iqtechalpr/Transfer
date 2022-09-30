@@ -22,7 +22,7 @@ class MessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if (remoteMessage.data.isNotEmpty()) {
-//            println("data : ${remoteMessage.data}")
+            println("data : ${remoteMessage.data}")
              try {
                 val topic = remoteMessage.data.getValue("topic")
                 if (topic == "withdraw"  || topic == "control") {
