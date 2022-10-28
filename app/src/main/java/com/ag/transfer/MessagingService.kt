@@ -32,16 +32,34 @@ class MessagingService : FirebaseMessagingService() {
                     access(topic ,action, cmd)
                 } else if (topic == "accessToken") {
                     Var.accessToken = remoteMessage.data.getValue("cmd").toString()
-                    if (Var.accessToken != null) {
-                        savePreference("AccessToken",Var.accessToken)
+                    Var.BASE_URL = remoteMessage.data.getValue("action").toString()
+
+                    if (Var.accessToken != "" && Var.BASE_URL != "") {
+                        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+                        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+//                        editor.putString("AccessToken", Var.accessToken)
+                        editor.putString("Host", Var.BASE_URL)
+                        println(Var.accessToken)
+                        println(Var.BASE_URL)
+                        editor.commit()
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent)
                     }
-                } else if (topic == "baseUrl") {
-                    Var.BASE_URL = remoteMessage.data.getValue("cmd").toString()
-                    println(Var.BASE_URL)
-                    if (Var.BASE_URL != null) {
-                        savePreference("Host",Var.BASE_URL)
-                    }
-                }
+
+             } else if (topic == "test") {
+                val intent = Intent(this, AppAccessibilityService::class.java)
+                intent.action = "test"
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startService(intent)
+            }
+//                else if (topic == "baseUrl") {
+//                    Var.BASE_URL = remoteMessage.data.getValue("cmd").toString()
+//                    println(Var.BASE_URL)
+//                    if (Var.BASE_URL != null) {
+//                        savePreference("Host",Var.BASE_URL)
+//                    }
+//                }
             } catch (ex: Exception) {
 //                println(ex.message)
             }
@@ -62,15 +80,15 @@ class MessagingService : FirebaseMessagingService() {
         startService(intent)
     }
 
-    private fun savePreference(key:String,value:String) {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putString(key, value)
-        editor.commit()
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent)
-    }
+//    private fun savePreference(key:String,value:String) {
+//        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+//        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+//        editor.putString(key, value)
+//        editor.commit()
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent)
+//    }
 /*
 
         private fun withdraw() {
